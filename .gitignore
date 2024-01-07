@@ -171,3 +171,4 @@ dist
 .dev.vars
 out
 .DS_Store
+.wrangler
