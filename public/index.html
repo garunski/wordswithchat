@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Words With Chat</title>
+    <meta
+      name="description"
+      content="A minimalist layout for Login pages. Built with Pico CSS."
+    />
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="canonical" href="https://wordswithchat.com" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="./custom.css" />
+
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  </head>
+
+  <body>
+    <nav class="container-fluid">
+      <a href="./" class="contrast"><strong>Words With Chat</strong></a>
+    </nav>
+
+    <main class="container">
+      <article class="grid">
+        <div>
+          <hgroup>
+            <h1>Sign in</h1>
+          </hgroup>
+          <form>
+            <button
+              type="submit"
+              class="contrast"
+              onclick="event.preventDefault()"
+            >
+              With Google
+            </button>
+          </form>
+        </div>
+        <div></div>
+      </article>
+    </main>
+    <footer class="container-fluid">
+      <small>
+        &copy;
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        Garun Vagidov. All rights reserved.
+      </small>
+    </footer>
+  </body>
+</html>
