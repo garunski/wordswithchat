@@ -8,25 +8,39 @@
       name="description"
       content="A minimalist layout for Login pages. Built with Pico CSS."
     />
-    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="shortcut icon" href="../../../favicon.ico" />
     <link rel="canonical" href="https://wordswithchat.com" />
 
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"
     />
-    <link rel="stylesheet" href="./custom.css" />
+    <link rel="stylesheet" href="../../../custom.css" />
 
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
   </head>
 
   <body>
     <nav class="container-fluid">
-      <a href="./" class="contrast"><strong>Words With Chat HOME</strong></a>
+      <a href="/" class="contrast"><strong>Words With Chat on chat</strong></a>
     </nav>
 
     <main class="container">
-      <H1>welcome to Words with Chat</H1>
+      <article class="grid">
+        <div>
+          <hgroup>
+            <h1>Sign in</h1>
+          </hgroup>
+          <a
+            rel="noreferrer"
+            href="/auth/google/redirect?client_id=WORDS_CLIENT_ID&redirect_uri=WORDS_REDIRECT_URI&state=WORDS_STATE"
+            title="Google"
+          >
+            Sign In With Google
+          </a>
+        </div>
+        <div></div>
+      </article>
     </main>
     <footer class="container-fluid">
       <small>
