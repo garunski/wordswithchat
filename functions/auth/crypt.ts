@@ -24,8 +24,9 @@ const base64URLToBytes = (str: string) =>
 
 const deriveKey = async (
   password: string,
-  salt: Uint8Array
+  salt: string
 ): Promise<CryptoKey> => {
+  const saltArray = new Uint8Array(encoder.encode(salt));
   const passwordKey = await crypto.subtle.importKey(
     "raw",
     encoder.encode(password),
@@ -37,7 +38,7 @@ const deriveKey = async (
   return crypto.subtle.deriveKey(
     {
       name: "PBKDF2",
-      salt,
+      salt: saltArray,
       iterations: 100000,
       hash: "SHA-256",
     },
@@ -52,9 +53,8 @@ export const encrypt = async (value: string, env: Env) => {
   try {
     const encodedValue = encoder.encode(value);
 
-    const salt = new Uint8Array(encoder.encode(env.ENCRYPT_SALT));
     const iv = new Uint8Array(encoder.encode(env.ENCRYPT_INIT_VECTOR));
-    const aesKey = await deriveKey(env.ENCRYPT_PASSWORD, salt);
+    const aesKey = await deriveKey(env.ENCRYPT_PASSWORD, env.ENCRYPT_SALT);
 
     const encryptedContent = await crypto.subtle.encrypt(
       {
@@ -76,9 +76,8 @@ export const decrypt = async (secret: string, env: Env) => {
   try {
     const decodedData = base64URLToBytes(secret);
 
-    const salt = new Uint8Array(encoder.encode(env.ENCRYPT_SALT));
     const iv = new Uint8Array(encoder.encode(env.ENCRYPT_INIT_VECTOR));
-    const aesKey = await deriveKey(env.ENCRYPT_PASSWORD, salt);
+    const aesKey = await deriveKey(env.ENCRYPT_PASSWORD, env.ENCRYPT_SALT);
 
     const decryptedContent = await crypto.subtle.decrypt(
       {
