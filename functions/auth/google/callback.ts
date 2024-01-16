@@ -1,5 +1,5 @@
 import jwt from "@tsndr/cloudflare-worker-jwt";
-import { encrypt, decrypt } from "../crypt";
+import { encrypt, decrypt } from "../crypto";
 
 interface Env {
   GOOGLE_CLIENT_ID: string;

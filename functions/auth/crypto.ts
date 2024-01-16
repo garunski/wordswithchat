@@ -51,18 +51,15 @@ const deriveKey = async (
 
 export const encrypt = async (value: string, env: Env) => {
   try {
-    const encodedValue = encoder.encode(value);
-
-    const iv = new Uint8Array(encoder.encode(env.ENCRYPT_INIT_VECTOR));
     const aesKey = await deriveKey(env.ENCRYPT_PASSWORD, env.ENCRYPT_SALT);
 
     const encryptedContent = await crypto.subtle.encrypt(
       {
         name: "AES-GCM",
-        iv,
+        iv: new Uint8Array(encoder.encode(env.ENCRYPT_INIT_VECTOR)),
       },
       aesKey,
-      encodedValue
+      encoder.encode(value)
     );
 
     return bytesToBase64URL(new Uint8Array(encryptedContent));
@@ -74,18 +71,15 @@ export const encrypt = async (value: string, env: Env) => {
 
 export const decrypt = async (secret: string, env: Env) => {
   try {
-    const decodedData = base64URLToBytes(secret);
-
-    const iv = new Uint8Array(encoder.encode(env.ENCRYPT_INIT_VECTOR));
     const aesKey = await deriveKey(env.ENCRYPT_PASSWORD, env.ENCRYPT_SALT);
 
     const decryptedContent = await crypto.subtle.decrypt(
       {
         name: "AES-GCM",
-        iv,
+        iv: new Uint8Array(encoder.encode(env.ENCRYPT_INIT_VECTOR)),
       },
       aesKey,
-      decodedData
+      base64URLToBytes(secret)
     );
 
     return decoder.decode(decryptedContent);
