@@ -8,7 +8,6 @@ interface Env {
 
 export const onRequest: PagesFunction<Env> = async (context) => {
   let query = new URLSearchParams(new URL(context.request.url).search);
-  console.log("🚀 ~ constonRequest:PagesFunction<Env>= ~ query:", query)
   if (
     !query.has("client_id") ||
     query.get("client_id") !== context.env.APP_CLIENT_ID ||
@@ -17,7 +16,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
   ) {
     return Response.redirect(
       `${context.env.CURRENT_PAGE_URL}?error=Something Bad Happened`,
-      302
+      302,
     );
   }
 

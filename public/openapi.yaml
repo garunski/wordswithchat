@@ -23,7 +23,7 @@ paths:
             application/json:
               schema:
                 type: array
-                items: 
+                items:
                   type: string
   /api/words/colors:
     get:
@@ -40,7 +40,7 @@ paths:
             application/json:
               schema:
                 type: array
-                items: 
+                items:
                   type: string
   /api/words/places:
     get:
@@ -57,7 +57,7 @@ paths:
             application/json:
               schema:
                 type: array
-                items: 
+                items:
                   type: string
   /api/scoring:
     get:
@@ -78,7 +78,7 @@ paths:
                   score:
                     type: integer
                     example: 12
-    post: 
+    post:
       tags:
         - Scoring
       summary: Increase your score

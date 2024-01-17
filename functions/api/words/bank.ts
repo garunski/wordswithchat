@@ -157,4 +157,4 @@ const colors = [
   "red",
 ];
 
-export default {colors, animals, places};
+export default { colors, animals, places };

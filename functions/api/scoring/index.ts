@@ -26,11 +26,6 @@ const get: PagesFunction<Env> = async (context) => {
     returnedScore += Number(score);
   }
 
-  console.log(
-    "🚀 ~ constonRequestPost:PagesFunction<Env>= ~ { score: newScore }:",
-    { score: returnedScore }
-  );
-
   return Response.json({ score: returnedScore });
 };
 

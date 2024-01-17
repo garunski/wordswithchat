@@ -18,7 +18,7 @@ const base64URLToBytes = (str: string) =>
 
 const deriveKey = async (
   password: string,
-  salt: string
+  salt: string,
 ): Promise<CryptoKey> => {
   const saltArray = new Uint8Array(encoder.encode(salt));
   const passwordKey = await crypto.subtle.importKey(
@@ -26,7 +26,7 @@ const deriveKey = async (
     encoder.encode(password),
     "PBKDF2",
     false,
-    ["deriveKey"]
+    ["deriveKey"],
   );
 
   return crypto.subtle.deriveKey(
@@ -39,7 +39,7 @@ const deriveKey = async (
     passwordKey,
     { name: "AES-GCM", length: 256 },
     false,
-    ["encrypt", "decrypt"]
+    ["encrypt", "decrypt"],
   );
 };
 
@@ -60,7 +60,7 @@ export const encrypt = async (value: string, key: string) => {
         iv: new Uint8Array(encoder.encode(iv)),
       },
       aesKey,
-      encoder.encode(value)
+      encoder.encode(value),
     );
 
     return bytesToBase64URL(new Uint8Array(encryptedContent));
@@ -82,7 +82,7 @@ export const decrypt = async (secret: string, key: string) => {
         iv: new Uint8Array(encoder.encode(iv)),
       },
       aesKey,
-      base64URLToBytes(secret)
+      base64URLToBytes(secret),
     );
 
     return decoder.decode(decryptedContent);

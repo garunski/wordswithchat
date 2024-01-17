@@ -17,11 +17,14 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   ) {
     return Response.redirect(
       `${context.env.CURRENT_PAGE_URL}?error=Something Bad Happened`,
-      302
+      302,
     );
   }
 
-  await context.env.WORDSWITHCHAT_AUTH.put(`state:${query.get("state")}`, search);
+  await context.env.WORDSWITHCHAT_AUTH.put(
+    `state:${query.get("state")}`,
+    search,
+  );
 
   const params = new URLSearchParams({
     access_type: "offline",
@@ -30,7 +33,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     redirect_uri: `${context.env.CURRENT_PAGE_URL}${context.env.GOOGLE_REDIRECT_URI}`,
     response_type: "code",
     scope: "openid",
-    state: query.get("state")!
+    state: query.get("state")!,
   }).toString();
 
   return Response.redirect(`${context.env.GOOGLE_AUTH_URI}?${params}`, 302);

@@ -15,7 +15,7 @@ const authentication: PagesFunction<Env> = async (context) => {
 
   const decryptedCode = await decrypt(
     accessToken,
-    context.env.ENCRYPT_ACCESS_TOKEN_SECRET
+    context.env.ENCRYPT_ACCESS_TOKEN_SECRET,
   );
 
   const parts = decryptedCode.split("%");

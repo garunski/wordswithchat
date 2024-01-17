@@ -33,7 +33,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const idToken = jwt.decode(result.id_token);
 
   const initialCall = await context.env.WORDSWITHCHAT_AUTH.get(
-    `state:${query.get("state")}`
+    `state:${query.get("state")}`,
   );
   const initialParams = new URLSearchParams(initialCall!);
 
@@ -47,12 +47,12 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       accessToken: result.access_token,
       expiresIn: result.expires_in,
       refreshToken: result.refresh_token,
-    })
+    }),
   );
 
   const code = await encrypt(
     `google:${idToken.payload!.sub}%${Date.now() + 5 * 60 * 1000}`,
-    context.env.ENCRYPT_CODE_SECRET
+    context.env.ENCRYPT_CODE_SECRET,
   );
 
   const params = new URLSearchParams({
@@ -62,6 +62,6 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   return Response.redirect(
     `${initialParams.get("redirect_uri")}?${params}`,
-    302
+    302,
   );
 };
