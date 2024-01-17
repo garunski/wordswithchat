@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -6,7 +6,7 @@
     <title>Words With Chat</title>
     <meta
       name="description"
-      content="A minimalist layout for Login pages. Built with Pico CSS."
+      content="A tiny game of guessing words."
     />
     <link rel="shortcut icon" href="./favicon.ico" />
     <link rel="canonical" href="https://wordswithchat.com" />
@@ -21,20 +21,56 @@
   </head>
 
   <body>
-    <nav class="container-fluid">
-      <a href="./" class="contrast"><strong>Words With Chat HOME</strong></a>
-    </nav>
+    <header class="container">
+      <hgroup>
+        <h1>Words With Chat</h1>
+        <p>A tiny game of guessing words.</p>
+      </hgroup>
+    </header>
 
     <main class="container">
-      <h1>welcome to Words with Chat</h1>
+      <article class="grid">
+        <div>
+        <hgroup>
+      <p>
+        Get ready to challenge your vocabulary in a thrilling game of word
+        guesses with ChatGPT! Start by selecting your favorite category:
+        Animals, Places, or Colors. Your choice sets the stage for the game.
+        Once you've made your selection, ChatGPT dives into its extensive word
+        library, using a bank of words to fetch a random word from
+        your chosen category. The fun begins as you try to guess this word based
+        on clever hints provided by ChatGPT. Remember, the more accurate your
+        guesses, the closer you get to the word!
+      </p>
+
+      <p>
+        But that's not all! The game is a balance of wit and strategy. ChatGPT
+        will offer you hints, but be cautious - these hints are helpful yet
+        subtle, designed to guide you without giving away the word. Your task is
+        to interpret these hints and make your guess. Correct guesses are
+        rewarded. And if curiosity about your progress gets the better of you,
+        just ask! ChatGPT can retrieve your current score anytime with a simple
+        request. 
+      </p>
+      <p>
+        <em>Are you ready to play?</em>
+      </p>
+      <p>
+        <a href="https://chat.openai.com/g/g-HGmSVHyWf-word-guessing-game"><strong>Let the guessing game begin!</strong></a>
+      </p>
+    </div>
+      <div></div>
+    </hgroup>
+    </article>
     </main>
-    <footer class="container-fluid">
+    <footer class="container">
       <small>
         &copy;
         <script>
           document.write(new Date().getFullYear());
         </script>
         Garun Vagidov. All rights reserved.
+        <a href="/privacy">Privacy Policy</a>
       </small>
     </footer>
   </body>

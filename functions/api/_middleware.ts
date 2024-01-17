@@ -24,6 +24,8 @@ const authentication: PagesFunction<Env> = async (context) => {
     return new Response("Unauthorized", { status: 403 });
   }
 
+  // TODO: add checking for expiration of the access token
+
   context.data.userId = parts[0];
 
   return context.next();

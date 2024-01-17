@@ -21,17 +21,16 @@
   </head>
 
   <body>
-    <nav class="container-fluid">
-      <a href="/" class="contrast"><strong>Words With Chat on chat</strong></a>
-    </nav>
-
+    <header class="container">
+      <hgroup>
+        <h1>Words With Chat</h1>
+        <p>A tiny game of guessing words.</p>
+      </hgroup>
+    </header>
     <main class="container">
       <article class="grid">
-        <div>
-          <hgroup>
-            <h1>Sign in</h1>
-          </hgroup>
-          <a
+        <div class="login">
+          <a role="button"
             rel="noreferrer"
             href="/auth/google/redirect?client_id=WORDS_CLIENT_ID&redirect_uri=WORDS_REDIRECT_URI&state=WORDS_STATE"
             title="Google"
