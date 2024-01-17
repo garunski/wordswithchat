@@ -6,7 +6,7 @@ interface Env {
   GOOGLE_CLIENT_SECRET: string;
   GOOGLE_TOKEN_URI: string;
   GOOGLE_REDIRECT_URI: string;
-  CF_PAGES_URL: string;
+  CURRENT_PAGE_URL: string;
   WORDSWITHCHAT_AUTH: KVNamespace;
   ENCRYPT_CODE_SECRET: string;
 }
@@ -23,7 +23,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     body: JSON.stringify({
       client_id: context.env.GOOGLE_CLIENT_ID,
       client_secret: context.env.GOOGLE_CLIENT_SECRET,
-      redirect_uri: `${context.env.CF_PAGES_URL}${context.env.GOOGLE_REDIRECT_URI}`,
+      redirect_uri: `${context.env.CURRENT_PAGE_URL}${context.env.GOOGLE_REDIRECT_URI}`,
       code: query.get("code"),
       grant_type: "authorization_code",
     }),

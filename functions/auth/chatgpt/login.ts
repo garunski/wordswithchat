@@ -2,7 +2,7 @@ import { encrypt } from "../../crypto";
 import html from "./login.html";
 
 interface Env {
-  CF_PAGES_URL: string;
+  CURRENT_PAGE_URL: string;
   APP_CLIENT_ID: string;
 }
 
@@ -16,7 +16,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     !query.has("state")
   ) {
     return Response.redirect(
-      `${context.env.CF_PAGES_URL}?error=Something Bad Happened`,
+      `${context.env.CURRENT_PAGE_URL}?error=Something Bad Happened`,
       302
     );
   }
