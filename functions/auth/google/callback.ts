@@ -1,5 +1,5 @@
 import jwt from "@tsndr/cloudflare-worker-jwt";
-import { encrypt, decrypt } from "../crypto";
+import { encrypt, decrypt } from "../../crypto";
 
 interface Env {
   GOOGLE_CLIENT_ID: string;
@@ -8,9 +8,7 @@ interface Env {
   GOOGLE_REDIRECT_URI: string;
   CF_PAGES_URL: string;
   WORDSWITHCHAT_AUTH: KVNamespace;
-  ENCRYPT_SALT: string;
-  ENCRYPT_INIT_VECTOR: string;
-  ENCRYPT_PASSWORD: string;
+  ENCRYPT_CODE_SECRET: string;
 }
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
@@ -37,6 +35,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const initialCall = await context.env.WORDSWITHCHAT_AUTH.get(
     `state:${query.get("state")}`
   );
+  const initialParams = new URLSearchParams(initialCall!);
+
   await context.env.WORDSWITHCHAT_AUTH.delete(`state:${query.get("state")}`);
 
   await context.env.WORDSWITHCHAT_AUTH.delete(`google:${idToken.payload!.sub}`);
@@ -52,10 +52,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   const code = await encrypt(
     `google:${idToken.payload!.sub}%${Date.now() + 5 * 60 * 1000}`,
-    context.env
+    context.env.ENCRYPT_CODE_SECRET
   );
-
-  const initialParams = new URLSearchParams(initialCall!);
 
   const params = new URLSearchParams({
     state: initialParams.get("state")!,

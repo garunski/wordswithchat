@@ -1,0 +1,99 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: OpenAPI
+servers:
+  - url: https://a553-71-115-128-37.ngrok-free.app
+components:
+  schemas: {}
+  parameters: {}
+paths:
+  /api/words/animals:
+    get:
+      tags:
+        - Animals
+      summary: List all animals for guessing
+      operationId: get_allanimals
+      security:
+        - oauth: []
+      responses:
+        "200":
+          description: Returns a list of animals for use for guessing
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  type: string
+  /api/words/colors:
+    get:
+      tags:
+        - Colors
+      summary: List all colors for guessing
+      operationId: get_allcolors
+      security:
+        - oauth: []
+      responses:
+        "200":
+          description: Returns a list of colors for use for guessing
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  type: string
+  /api/words/places:
+    get:
+      tags:
+        - Places
+      summary: List all places for guessing
+      operationId: get_allplaces
+      security:
+        - oauth: []
+      responses:
+        "200":
+          description: Returns a list of places for use for guessing
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  type: string
+  /api/scoring:
+    get:
+      tags:
+        - Scoring
+      summary: Get your score
+      operationId: get_score
+      security:
+        - oauth: []
+      responses:
+        "200":
+          description: Returns the current score of the user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  score:
+                    type: integer
+                    example: 12
+    post: 
+      tags:
+        - Scoring
+      summary: Increase your score
+      operationId: post_score
+      security:
+        - oauth: []
+      responses:
+        "200":
+          description: Returns the current score of the user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  score:
+                    type: integer
+                    example: 12
+webhooks: {}

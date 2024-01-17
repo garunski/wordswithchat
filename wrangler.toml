@@ -2,5 +2,6 @@ name = "wordswithchat"
 compatibility_date = "2024-01-07"
 
 kv_namespaces = [
-  { binding = "WORDSWITHCHAT_AUTH", id = "a04296cd8fa34c5fb4407c41f910a027" }
+  { binding = "WORDSWITHCHAT_AUTH", id = "a04296cd8fa34c5fb4407c41f910a027" },
+  { binding = "WORDSWITHCHAT_SCORE", id = "cc47c7240a75409e82d5fa6393f88ebc" }
 ]

@@ -1,13 +1,17 @@
+import { encrypt } from "../../crypto";
 import html from "./login.html";
 
 interface Env {
   CF_PAGES_URL: string;
+  APP_CLIENT_ID: string;
 }
 
 export const onRequest: PagesFunction<Env> = async (context) => {
   let query = new URLSearchParams(new URL(context.request.url).search);
+  console.log("🚀 ~ constonRequest:PagesFunction<Env>= ~ query:", query)
   if (
     !query.has("client_id") ||
+    query.get("client_id") !== context.env.APP_CLIENT_ID ||
     !query.has("redirect_uri") ||
     !query.has("state")
   ) {

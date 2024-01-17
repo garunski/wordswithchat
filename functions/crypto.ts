@@ -1,9 +1,3 @@
-interface Env {
-  ENCRYPT_SALT: string;
-  ENCRYPT_INIT_VECTOR: string;
-  ENCRYPT_PASSWORD: string;
-}
-
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 
@@ -39,7 +33,7 @@ const deriveKey = async (
     {
       name: "PBKDF2",
       salt: saltArray,
-      iterations: 100000,
+      iterations: 256,
       hash: "SHA-256",
     },
     passwordKey,
@@ -49,14 +43,21 @@ const deriveKey = async (
   );
 };
 
-export const encrypt = async (value: string, env: Env) => {
+const generateKeys = (value: string) => ({
+  password: value.slice(0, 60),
+  salt: value.slice(value.length - 40, value.length),
+  iv: value.slice(value.length - 60, value.length - 20),
+});
+
+export const encrypt = async (value: string, key: string) => {
   try {
-    const aesKey = await deriveKey(env.ENCRYPT_PASSWORD, env.ENCRYPT_SALT);
+    const { password, salt, iv } = generateKeys(key);
+    const aesKey = await deriveKey(password, salt);
 
     const encryptedContent = await crypto.subtle.encrypt(
       {
         name: "AES-GCM",
-        iv: new Uint8Array(encoder.encode(env.ENCRYPT_INIT_VECTOR)),
+        iv: new Uint8Array(encoder.encode(iv)),
       },
       aesKey,
       encoder.encode(value)
@@ -69,14 +70,16 @@ export const encrypt = async (value: string, env: Env) => {
   }
 };
 
-export const decrypt = async (secret: string, env: Env) => {
+export const decrypt = async (secret: string, key: string) => {
   try {
-    const aesKey = await deriveKey(env.ENCRYPT_PASSWORD, env.ENCRYPT_SALT);
+    const { password, salt, iv } = generateKeys(key);
+
+    const aesKey = await deriveKey(password, salt);
 
     const decryptedContent = await crypto.subtle.decrypt(
       {
         name: "AES-GCM",
-        iv: new Uint8Array(encoder.encode(env.ENCRYPT_INIT_VECTOR)),
+        iv: new Uint8Array(encoder.encode(iv)),
       },
       aesKey,
       base64URLToBytes(secret)
@@ -88,3 +91,9 @@ export const decrypt = async (secret: string, env: Env) => {
     throw e;
   }
 };
+
+export const getRefreshPadding = (refresh: string) =>
+  refresh.slice(refresh.length / 2, refresh.length / 2 + 40);
+
+export const getAccessPadding = (access: string) =>
+  access.slice(access.length / 2, access.length / 2 + 40);
