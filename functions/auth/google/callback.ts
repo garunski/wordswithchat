@@ -60,6 +60,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     code,
   }).toString();
 
+  console.log("Params: ", params);
+
   return Response.redirect(
     `${initialParams.get("redirect_uri")}?${params}`,
     302,
